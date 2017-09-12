@@ -29,12 +29,14 @@ private[filewatch] object GlobalStaticVar {
     // Now we construct a MBean that exposes the AtomicReference.get method
     val getMethod = classOf[AtomicReference[_]].getMethod("get")
     val getInfo = new ModelMBeanOperationInfo("The value", getMethod)
-    val mmbi = new ModelMBeanInfoSupport("GlobalStaticVar",
+    val mmbi = new ModelMBeanInfoSupport(
+      "GlobalStaticVar",
       "A global static variable",
       null, // no attributes
       null, // no constructors
       Array(getInfo), // the operation
-      null); // no notifications
+      null
+    ); // no notifications
 
     val mmb = new RequiredModelMBean(mmbi)
     mmb.setManagedResource(reference, "ObjectReference")
